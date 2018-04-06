@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="10dp"
+    android:id="@+id/listagem_View">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/img_genero"
+        android:src="@drawable/ic_launcher_background"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/img_genero"
+        android:layout_marginLeft="15dp"
+        android:textSize="23dp"
+        android:id="@+id/txt_nome"
+        android:text="Munique"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/txt_nome"
+        android:layout_below="@id/txt_nome"
+        android:id="@+id/txt_diretor"
+        android:text="Steven Spielberg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/img_genero"
+        android:layout_alignLeft="@id/txt_nome"
+        android:layout_marginTop="10dp"
+        android:text="16 anos"
+        android:id="@+id/txt_faixa"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/img_genero"
+        android:id="@+id/txt_ano"
+        android:text="1996" />
+</RelativeLayout>
