@@ -8,10 +8,10 @@ public class Listagem {
     private String nome;
     private String genero;
     private String diretor;
-    private String faixa;
+    private Integer faixa;
     private String ano;
 
-    public Listagem(String nome, String genero, String diretor, String faixa, String ano) {
+    public Listagem(String nome, String genero, String diretor, Integer faixa, String ano) {
         this.nome = nome;
         this.genero = genero;
         this.diretor = diretor;
@@ -42,7 +42,7 @@ public class Listagem {
     }
 
     public String getFaixa() {
-        return faixa;
+        return faixa.toString();
     }
 
     //setters
@@ -54,7 +54,7 @@ public class Listagem {
         this.diretor = diretor;
     }
 
-    public void setFaixa(String faixa) {
+    public void setFaixa(int faixa) {
         this.faixa = faixa;
     }
 

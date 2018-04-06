@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MovieMe</string>
+    <string name="addFilme_nome">Nome do filme</string>
+    <string name="addFilme_genero">Gênero</string>
+    <string name="addFilme_diretor">Diretor</string>
+    <string name="addFilme_ano">Ano</string>
+    <string name="addFilme_faixa">Classificação Indicativa:</string>
+    <string name="addFilme_btnAdd">Adicionar</string>
+
 </resources>
