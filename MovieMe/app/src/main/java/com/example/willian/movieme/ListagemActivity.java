@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListagemActivity extends Activity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
