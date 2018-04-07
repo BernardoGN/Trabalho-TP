@@ -33,16 +33,15 @@
         android:text="Steven Spielberg" />
 
 
-    <!--
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@id/img_genero"
+        android:layout_alignBottom="@id/img_faixa"
         android:layout_alignLeft="@id/txt_nome"
         android:layout_marginTop="10dp"
-        android:text="16 anos"
-        android:id="@+id/txt_faixa"/>
-    -->
+        android:text="Comédia"
+        android:id="@+id/txt_genero"/>
+
 
     <TextView
         android:layout_width="wrap_content"

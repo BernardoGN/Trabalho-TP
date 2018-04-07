@@ -49,10 +49,12 @@ public class ListagemAdapter extends BaseAdapter {
         TextView nome = view.findViewById(R.id.txt_nome);
         TextView diretor = view.findViewById(R.id.txt_diretor);
         TextView ano = view.findViewById(R.id.txt_ano);
+        TextView genero = view.findViewById(R.id.txt_genero);
 
         nome.setText(listagem.getNome());
         diretor.setText(listagem.getDiretor());
         ano.setText(listagem.getAno());
+        genero.setText(listagem.getGenero());
         imgFaixa.setImageResource(listagem.getFaixa());
 
         return view;
