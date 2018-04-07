@@ -41,8 +41,8 @@ public class Listagem {
         return ano;
     }
 
-    public String getFaixa() {
-        return faixa.toString();
+    public Integer getFaixa() {
+        return faixa;
     }
 
     //setters

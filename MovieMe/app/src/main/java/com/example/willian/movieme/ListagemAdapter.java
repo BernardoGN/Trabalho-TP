@@ -45,17 +45,15 @@ public class ListagemAdapter extends BaseAdapter {
 
         Listagem listagem = listagens.get(position);
 
-        ImageView imggenero = view.findViewById(R.id.img_genero);
+        ImageView imgFaixa= view.findViewById(R.id.img_faixa);
         TextView nome = view.findViewById(R.id.txt_nome);
         TextView diretor = view.findViewById(R.id.txt_diretor);
-        TextView faixa = view.findViewById(R.id.txt_faixa);
         TextView ano = view.findViewById(R.id.txt_ano);
 
         nome.setText(listagem.getNome());
         diretor.setText(listagem.getDiretor());
-        faixa.setText(listagem.getFaixa());
         ano.setText(listagem.getAno());
-        imggenero.setImageResource(R.drawable.dog);
+        imgFaixa.setImageResource(listagem.getFaixa());
 
         return view;
     }
