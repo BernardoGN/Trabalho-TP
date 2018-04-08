@@ -1,11 +1,14 @@
 package com.example.willian.movieme;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +22,57 @@ public class ListagemActivity extends Activity {
         setContentView(R.layout.activity_listagem);
 
         ListView listaDeFilmes = (ListView) findViewById(R.id.lista);
-        ListagemAdapter adapter = new ListagemAdapter(listagens, this);
+        final ListagemAdapter adapter = new ListagemAdapter(listagens, this);
         listaDeFilmes.setAdapter(adapter);
+
+        // Código para remover filme com swipe //
+        SwipeDismissListViewTouchListener touchListener =
+                new SwipeDismissListViewTouchListener(
+                        listaDeFilmes,
+                        new SwipeDismissListViewTouchListener.DismissCallbacks() {
+                            @Override
+                            public boolean canDismiss(int position) {
+                                return true;
+                            }
+
+                            @Override
+                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                                for (final int position : reverseSortedPositions) {
+
+                                    //Criar Dialog quando o usuário usar o swipe
+                                    AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListagemActivity.this);
+
+                                    alertBuilder.setIcon(R.drawable.ic_launcher_foreground);
+                                    alertBuilder.setTitle("Aviso!");
+                                    alertBuilder.setMessage("Tem certeza que deseja excluir o filme?");
+
+                                    alertBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            listagens.remove(position);
+                                            adapter.notifyDataSetChanged();
+                                            Toast.makeText(getBaseContext(), "Filme removido com sucesso", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+                                    alertBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        }
+                                    });
+
+                                    AlertDialog dialog = alertBuilder.create();
+                                    dialog.show();
+
+                                }
+
+
+                            }
+                        });
+        listaDeFilmes.setOnTouchListener(touchListener);
+
+        // Quando pressionar o botão //
 
         Button btn = findViewById(R.id.listagem_btnAdd);
         btn.setOnClickListener(new View.OnClickListener() {
