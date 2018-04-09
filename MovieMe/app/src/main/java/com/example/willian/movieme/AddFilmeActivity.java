@@ -42,18 +42,18 @@ public class AddFilmeActivity extends Activity {
                 // Verifica se os campos obrigatórios estão preenchidos //
 
                 if (TextUtils.isEmpty(nome.getText())){
-                    Toast.makeText(AddFilmeActivity.this, "Nome do filme é obrigatório", Toast.LENGTH_SHORT).show();
-                    nome.setError("Nome do filme é obrigatório");
+                    //Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastNomeObrigatorio), Toast.LENGTH_SHORT).show();
+                    nome.setError(getString(R.string.toastNomeObrigatorio));
                 }else if (TextUtils.isEmpty(genero.getText())){
-                    Toast.makeText(AddFilmeActivity.this, "Gênero do filme é obrigatório", Toast.LENGTH_SHORT).show();
-                    genero.setError("Gênero do filme é obrigatório");
+                    //Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastGeneroObrigatorio), Toast.LENGTH_SHORT).show();
+                    genero.setError(getString(R.string.toastGeneroObrigatorio));
                 }else if (TextUtils.isEmpty(ano.getText())){
-                    Toast.makeText(AddFilmeActivity.this, "Ano de lançamento do filme é obrigatório", Toast.LENGTH_SHORT).show();
-                    ano.setError("Ano do filme é obrigatório");
+                    //Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastAnoObrigatorio), Toast.LENGTH_SHORT).show();
+                    ano.setError(getString(R.string.toastAnoObrigatorio));
 
                 // Diferente para RadioGroup, não está funcionando //
                 }else if (radioGroup.getCheckedRadioButtonId() == -1){ // Nenhum RadioButton selecionado
-                    Toast.makeText(AddFilmeActivity.this, "Classificação indicativa do filme é obrigatória", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastFaixaObrigatoria), Toast.LENGTH_SHORT).show();
                 }else {
 
 

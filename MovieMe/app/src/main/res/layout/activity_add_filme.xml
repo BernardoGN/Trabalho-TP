@@ -80,7 +80,7 @@
             android:scaleY="0.8"
             android:id="@+id/livre"
 
-            android:text="L"
+            android:text="@string/classLivre"
             android:textSize="20dp"
             android:layout_marginLeft="20dp" />
 
@@ -92,7 +92,7 @@
             android:scaleY="0.8"
             android:id="@+id/dez"
 
-            android:text="10"
+            android:text="@string/classDez"
             android:textSize="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -105,7 +105,7 @@
             android:scaleY="0.8"
             android:id="@+id/doze"
 
-            android:text="12"
+            android:text="@string/classDoze"
             android:textSize="20dp"
             android:layout_marginLeft="20dp"/>
 
@@ -117,7 +117,7 @@
                 android:scaleY="0.8"
                 android:id="@+id/catorze"
 
-                android:text="14"
+                android:text="@string/classCatorze"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"
                 />
@@ -131,7 +131,7 @@
                 android:scaleY="0.8"
                 android:id="@+id/dezesseis"
 
-                android:text="16"
+                android:text="@string/classDezesseis"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"/>
 
@@ -144,7 +144,7 @@
                 android:scaleY="0.8"
                 android:id="@+id/dezoito"
 
-                android:text="18"
+                android:text="@string/classDezoito"
                 android:textSize="20dp"
                 android:layout_marginLeft="20dp"/>
 

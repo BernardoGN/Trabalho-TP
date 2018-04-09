@@ -43,19 +43,19 @@ public class ListagemActivity extends Activity {
                                     AlertDialog.Builder alertBuilder = new AlertDialog.Builder(ListagemActivity.this);
 
                                     alertBuilder.setIcon(R.drawable.ic_launcher_foreground);
-                                    alertBuilder.setTitle("Aviso!");
-                                    alertBuilder.setMessage("Tem certeza que deseja excluir o filme?");
+                                    alertBuilder.setTitle(getString(R.string.dialogTitle));
+                                    alertBuilder.setMessage(getString(R.string.dialogMessage));
 
-                                    alertBuilder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                    alertBuilder.setPositiveButton(getString(R.string.dialogPositive), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             listagens.remove(position);
                                             adapter.notifyDataSetChanged();
-                                            Toast.makeText(getBaseContext(), "Filme removido com sucesso", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getBaseContext(), getString(R.string.toastFilmeRemovido), Toast.LENGTH_SHORT).show();
                                         }
                                     });
 
-                                    alertBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                    alertBuilder.setNegativeButton(getString(R.string.dialogNegative), new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialogInterface, int i) {
 
