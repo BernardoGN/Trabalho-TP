@@ -72,15 +72,32 @@ public class ListagemActivity extends Activity {
                         });
         listaDeFilmes.setOnTouchListener(touchListener);
 
-        // Quando pressionar o botão //
+        // Quando pressionar o botão  de adicionar //
 
-        Button btn = findViewById(R.id.listagem_btnAdd);
-        btn.setOnClickListener(new View.OnClickListener() {
+        Button btnAdd = findViewById(R.id.listagem_btnAdd);
+        btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ListagemActivity.this, AddFilmeActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpa activity
                 startActivity(intent);
+            }
+        });
+
+        // Quando pressionar o botão de compartilhar //
+
+        Button btnShare = findViewById(R.id.listagem_btnShare);
+        btnShare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                // Usuario define titulo seria a melhor opcao //
+                share.putExtra(Intent.EXTRA_SUBJECT, "Titulo do compartilhamento");
+                // Dados do filme //
+                share.putExtra(Intent.EXTRA_TEXT, "Nome: Nome do filme");
+                startActivity(Intent.createChooser(share, "Compartilhar link!"));
             }
         });
 

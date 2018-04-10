@@ -92,12 +92,7 @@ public class AddFilmeActivity extends Activity {
                     // Adiciona filme na lista //
                     Listagem l = new Listagem(nome.getText().toString(), genero.getText().toString(), diretor.getText().toString(), photoId, ano.getText().toString());
                     ListagemActivity.AddFilme(l);
-                    // Reset os campos //
-                    nome.setText("");
-                    genero.setText("");
-                    diretor.setText("");
-                    ano.setText("");
-                    radioGroup.clearCheck();
+
                     // Volta para a activity principal //
                     Intent intent = new Intent(AddFilmeActivity.this, ListagemActivity.class);
                     startActivity(intent);

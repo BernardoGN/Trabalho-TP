@@ -35,6 +35,8 @@
     <string name="toastAnoObrigatorio">Ano de lançamento do filme é obrigatório</string>
     <string name="toastFaixaObrigatoria">Classificação indicativa do filme é obrigatória</string>
 
+    <!-- ListagemActivity -->
+    <string name="listagemBtnShare">Compartilhar</string>
 
 
 </resources>

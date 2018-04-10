@@ -35,5 +35,7 @@
     <string name="toastAnoObrigatorio">Movie`s release year is required</string>
     <string name="toastFaixaObrigatoria">Movie`s age rating is required</string>
 
+    <!-- ListagemActivity -->
+    <string name="listagemBtnShare">Compartilhar</string>
 
 </resources>
