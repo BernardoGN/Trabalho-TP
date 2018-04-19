@@ -38,4 +38,7 @@
     <!-- ListagemActivity -->
     <string name="listagemBtnShare">Compartilhar</string>
 
+    <!-- Action Bar -->
+    <string name="actionShare">Share</string>
+
 </resources>

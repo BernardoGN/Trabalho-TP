@@ -5,9 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -23,6 +26,7 @@ public class ListagemActivity extends Activity {
 
         ListView listaDeFilmes = (ListView) findViewById(R.id.lista);
         final ListagemAdapter adapter = new ListagemAdapter(listagens, this);
+
         listaDeFilmes.setAdapter(adapter);
 
         // Código para remover filme com swipe //
@@ -83,24 +87,6 @@ public class ListagemActivity extends Activity {
                 startActivity(intent);
             }
         });
-
-        // Quando pressionar o botão de compartilhar //
-
-        Button btnShare = findViewById(R.id.listagem_btnShare);
-        btnShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("text/plain");
-                share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                // Usuario define titulo seria a melhor opcao //
-                share.putExtra(Intent.EXTRA_SUBJECT, "Titulo do compartilhamento");
-                // Dados do filme //
-                share.putExtra(Intent.EXTRA_TEXT, "Nome: Nome do filme");
-                startActivity(Intent.createChooser(share, "Compartilhar link!"));
-            }
-        });
-
     }
 
     public List<Listagem> EntradaTeste() {
@@ -131,5 +117,22 @@ public class ListagemActivity extends Activity {
 
     public static void AddFilme(Listagem l) {
         listagens.add(l);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // Share Provider //
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        ShareActionProvider shareProvider = (ShareActionProvider) shareItem.getActionProvider();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/*");
+        intent.putExtra(Intent.EXTRA_TEXT, "Texto para Compartilhar");
+
+        // exibe a intent
+        shareProvider.setShareIntent(intent);
+
+        return true;
     }
 }
