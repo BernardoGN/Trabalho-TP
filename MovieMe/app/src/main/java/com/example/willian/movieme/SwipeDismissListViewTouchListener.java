@@ -52,7 +52,9 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         boolean canDismiss(int position);
 
 
-        void onDismiss(ListView listView, int[] reverseSortedPositions);
+        void onDismissRight(ListView listView, int[] reverseSortedPositions);
+
+        void onDismissLeft(ListView listView, int[] reverseSortedPositions);
     }
 
 
@@ -179,6 +181,8 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     // dismiss
                     final View downView = mDownView; // mDownView gets null'd before animation ends
                     final int downPosition = mDownPosition;
+                    //Meu código
+                    final boolean right = dismissRight;
                     ++mDismissAnimationRefCount;
                     mDownView.animate()
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
@@ -187,7 +191,11 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                             .setListener(new AnimatorListenerAdapter() {
                                 @Override
                                 public void onAnimationEnd(Animator animation) {
-                                    performDismiss(downView, downPosition);
+                                    if (right) {
+                                        performDismiss(downView, downPosition, 'r');
+                                    }else {
+                                        performDismiss(downView, downPosition, 'l');
+                                    }
                                 }
                             });
                 } else {
@@ -258,7 +266,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
         }
     }
 
-    private void performDismiss(final View dismissView, final int dismissPosition) {
+    private void performDismiss(final View dismissView, final int dismissPosition, final char side) {
         // Animate the dismissed list item to zero-height and fire the dismiss callback when
         // all dismissed list item animations have completed. This triggers layout on each animation
         // frame; in the future we may want to do something smarter and more performant.
@@ -281,7 +289,12 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     for (int i = mPendingDismisses.size() - 1; i >= 0; i--) {
                         dismissPositions[i] = mPendingDismisses.get(i).position;
                     }
-                    mCallbacks.onDismiss(mListView, dismissPositions);
+                    // Diferenciar os lados //
+                    if (side == 'r') {
+                        mCallbacks.onDismissRight(mListView, dismissPositions);
+                    }else{
+                        mCallbacks.onDismissLeft(mListView, dismissPositions);
+                    }
 
                     // Reset mDownPosition to avoid MotionEvent.ACTION_UP trying to start a dismiss
                     // animation with a stale position

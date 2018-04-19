@@ -38,9 +38,9 @@ public class ListagemActivity extends Activity {
                             public boolean canDismiss(int position) {
                                 return true;
                             }
-
+                            // Se for para a direita deleta //
                             @Override
-                            public void onDismiss(ListView listView, int[] reverseSortedPositions) {
+                            public void onDismissRight(ListView listView, int[] reverseSortedPositions) {
                                 for (final int position : reverseSortedPositions) {
 
                                     //Criar Dialog quando o usuário usar o swipe
@@ -70,8 +70,18 @@ public class ListagemActivity extends Activity {
                                     dialog.show();
 
                                 }
-
-
+                            }
+                            // Se for para a esquerda compartilha //
+                            @Override
+                            public void onDismissLeft(ListView listView, int[] reverseSortedPositions){
+                                for (final int position : reverseSortedPositions) {
+                                    Listagem filme = listagens.get(position);
+                                    Intent intent = new Intent(Intent.ACTION_SEND);
+                                    intent.setType("text/*");
+                                    intent.putExtra(Intent.EXTRA_SUBJECT, filme.getNome());
+                                    intent.putExtra(Intent.EXTRA_TEXT, filme.getAno() + "\n" + filme.getDiretor() + "\n" + filme.getGenero());
+                                    startActivity(Intent.createChooser(intent, "Share via"));
+                                }
                             }
                         });
         listaDeFilmes.setOnTouchListener(touchListener);
