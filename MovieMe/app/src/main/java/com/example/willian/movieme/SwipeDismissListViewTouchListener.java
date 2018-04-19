@@ -3,6 +3,7 @@ package com.example.willian.movieme;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.SystemClock;
 import android.view.MotionEvent;
@@ -184,6 +185,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     //Meu código
                     final boolean right = dismissRight;
                     ++mDismissAnimationRefCount;
+                    mDownView.setBackgroundColor(mListView.getContext().getResources().getColor(R.color.colorPrimary));
                     mDownView.animate()
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
                             .alpha(0)
@@ -198,6 +200,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                                     }
                                 }
                             });
+
                 } else {
                     // cancel
                     mDownView.animate()

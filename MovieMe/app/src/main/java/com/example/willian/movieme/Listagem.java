@@ -10,6 +10,8 @@ public class Listagem {
     private String diretor;
     private Integer faixa;
     private String ano;
+    private Integer id;
+    private static Integer idA = 0;
 
     public Listagem(String nome, String genero, String diretor, Integer faixa, String ano) {
         this.nome = nome;
@@ -17,6 +19,8 @@ public class Listagem {
         this.diretor = diretor;
         this.faixa = faixa;
         this.ano = ano;
+        idA++;
+        this.id = idA;
     }
 
     //construtor padrão
@@ -40,6 +44,8 @@ public class Listagem {
     public String getAno() {
         return ano;
     }
+
+    public Integer getId(){ return this.id; }
 
     public Integer getFaixa() {
         return faixa;
@@ -65,4 +71,6 @@ public class Listagem {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public void setId(Integer id){this.id = id;}
 }
