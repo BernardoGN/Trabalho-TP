@@ -11,6 +11,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.w3c.dom.Text;
 
 /* TODO
@@ -88,10 +91,17 @@ public class AddFilmeActivity extends Activity {
                     // photoId precisa ser final
                     final Integer photoId = id;
 
-
                     // Adiciona filme na lista //
                     Listagem l = new Listagem(nome.getText().toString(), genero.getText().toString(), diretor.getText().toString(), photoId, ano.getText().toString());
                     ListagemActivity.AddFilme(l);
+
+                    //Adiciona as informações na db
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Filmes");
+
+                    myRef.child(l.getId().toString()).child("Nome").setValue(nome.getText().toString());
+                    myRef.child(l.getId().toString()).child("Diretor").setValue(diretor.getText().toString());
+                    myRef.child(l.getId().toString()).child("Ano").setValue(ano.getText().toString());
 
                     // Volta para a activity principal //
                     Intent intent = new Intent(AddFilmeActivity.this, ListagemActivity.class);
