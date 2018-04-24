@@ -49,6 +49,7 @@ public class CadastrarActivity extends Activity {
                                     Toast.makeText(CadastrarActivity.this, "Usuário criado.", Toast.LENGTH_SHORT).show();
                                     //se estiver tudo certo vai pra tela de login
                                     Intent intent = new Intent(CadastrarActivity.this, LogarActivity.class);
+                                    finish();
                                     startActivity(intent);
                                 } else {
                                     // em caso de falha, mostra um toast

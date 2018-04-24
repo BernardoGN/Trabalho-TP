@@ -8,15 +8,17 @@ public class Login {
     private  static String usuario = "";
     private  static String email = "";
     private static long quantidadeFilmes = 0;
+    private static long lastChild = 0;
 
-    public Login(String usuario, String email, long quantidadeFilmes) {
+    public Login(String usuario, String email, long quantidadeFilmes, long lastChild) {
         this.usuario = usuario;
         this.email = email;
         this.quantidadeFilmes = quantidadeFilmes;
+        this.lastChild = lastChild;
     }
 
     public Login() {
-        this(null, null, 0);
+        this(null, null, 0, 0);
     }
 
     //get
@@ -34,9 +36,19 @@ public class Login {
         return quantidadeFilmes;
     }
 
+    //get
+    public static long getlastChild() {
+        return lastChild;
+    }
+
     //set
     public static void setQuantidadeFilmes(long quantidadeFilmes2) {
         quantidadeFilmes = quantidadeFilmes2;
+    }
+
+    //set
+    public static void setLastChild(long lastChild2) {
+        lastChild = lastChild2;
     }
 
     //get

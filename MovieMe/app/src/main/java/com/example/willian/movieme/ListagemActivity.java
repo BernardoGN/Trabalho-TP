@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,11 +15,29 @@ import android.widget.ListView;
 import android.widget.ShareActionProvider;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class ListagemActivity extends Activity {
     private static List<Listagem> listagens = new ArrayList<>(); // entrada de dados (implementar banco de dados)
+
+    private DatabaseReference mDatabase;
+    //private String s; //para converter de long para string
+    private String nome;
+    private String genero;
+    private String diretor;
+    private Integer photoId;
+    private String ano;
+    private static DataSnapshot data;
+    private static boolean primeira_vez = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +48,48 @@ public class ListagemActivity extends Activity {
         final ListagemAdapter adapter = new ListagemAdapter(listagens, this);
 
         listaDeFilmes.setAdapter(adapter);
+
+        // Adiciona filmes anteriores //
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //Login.setQuantidadeFilmes(Login.getlastChild());//pega a quantidade de filmes que o usuario tem
+                if (Login.getQuantidadeFilmes() >= 1 && primeira_vez == true) {// se o usuario tiver um filme registrado no banco de dados, vai recuperar os dados
+                    for (long i = 0; i < Login.getlastChild(); i++) {
+                        if(dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
+                            nome = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Nome").getValue();
+                            genero = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Genero").getValue();
+                            diretor = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Diretor").getValue();
+                            ano = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Ano").getValue();
+                            photoId = (int) (long) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("photoId").getValue();
+
+                            Listagem l = new Listagem(nome, genero, diretor, photoId, ano);
+                            ListagemActivity.AddFilme(l);
+                        }
+                        else{
+                            Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()+1);
+                        }
+                    }
+                    // Atualiza a página //
+
+                    Intent intent = new Intent(ListagemActivity.this, ListagemActivity.class);
+                    finish();
+                    startActivity(intent);
+
+                }
+                data = dataSnapshot;
+                primeira_vez = false;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("TAG", databaseError.getMessage());
+            }
+        });
+
 
         // Código para remover filme com swipe //
         SwipeDismissListViewTouchListener touchListener =
@@ -55,6 +117,20 @@ public class ListagemActivity extends Activity {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             listagens.remove(position);
                                             adapter.notifyDataSetChanged();
+
+                                            //deletar na db
+                                            FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                            DatabaseReference myRef = database.getReference("Usuarios");
+                                            int newPosition = position;
+
+                                            for (int c=0; c < Login.getlastChild(); c++) {
+                                                if (data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
+                                                    newPosition++;
+                                                }
+                                            }
+                                            myRef.child(Login.getUsuario()).child(String.valueOf(newPosition)).setValue(null);
+                                            //Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()-1);
+
                                             Toast.makeText(getBaseContext(), getString(R.string.toastFilmeRemovido), Toast.LENGTH_SHORT).show();
                                         }
                                     });
@@ -94,9 +170,11 @@ public class ListagemActivity extends Activity {
             public void onClick(View v) {
                 Intent intent = new Intent(ListagemActivity.this, AddFilmeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // Limpa activity
+                finish();
                 startActivity(intent);
             }
         });
+
     }
 
     public List<Listagem> EntradaTeste() {

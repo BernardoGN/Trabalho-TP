@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,6 +25,8 @@ import org.w3c.dom.Text;
 public class AddFilmeActivity extends Activity {
 
     private String s; //para converter de long para string
+    private static DataSnapshot data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,9 +108,14 @@ public class AddFilmeActivity extends Activity {
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("Usuarios");
 
+                    //int i = 0;
 
+                    //for (int c = 0; c < Login.getQuantidadeFilmes(); c++)
+                    //if(!data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
+                    //    i++;
+                    //}
 
-                    s = String.valueOf(Login.getQuantidadeFilmes()); //converte long para string pois o .child não aceita long
+                    s = String.valueOf(Login.getlastChild()); //converte long para string pois o .child não aceita long
 
                     myRef.child(Login.getUsuario()).child(s).child("Nome").setValue(nome.getText().toString());
                     myRef.child(Login.getUsuario()).child(s).child("Diretor").setValue(diretor.getText().toString());
@@ -116,9 +124,11 @@ public class AddFilmeActivity extends Activity {
                     myRef.child(Login.getUsuario()).child(s).child("Genero").setValue(genero.getText().toString());
 
                     Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()+1);
+                    Login.setLastChild(Login.getlastChild()+1);
 
                     // Volta para a activity principal //
                     Intent intent = new Intent(AddFilmeActivity.this, ListagemActivity.class);
+                    finish();
                     startActivity(intent);
                 }
             }
