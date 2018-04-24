@@ -8,12 +8,12 @@ public class Listagem {
     private String nome;
     private String genero;
     private String diretor;
-    private Integer faixa;
+    private long faixa;
     private String ano;
-    private Integer id;
-    private static Integer idA = 0;
+    private long id;
+    private static long idA = 0;
 
-    public Listagem(String nome, String genero, String diretor, Integer faixa, String ano) {
+    public Listagem(String nome, String genero, String diretor, long faixa, String ano) {
         this.nome = nome;
         this.genero = genero;
         this.diretor = diretor;
@@ -24,9 +24,9 @@ public class Listagem {
     }
 
     //construtor padrão
-    //public Listagem() {
-    //    this(null, null, null, null);
-    //}
+    public Listagem() {
+        this(null, null, null, 0, null);
+    }
 
     //getters
     public String getNome() {
@@ -45,9 +45,9 @@ public class Listagem {
         return ano;
     }
 
-    public Integer getId(){ return this.id; }
+    public long getId(){ return this.id; }
 
-    public Integer getFaixa() {
+    public long getFaixa() {
         return faixa;
     }
 
@@ -60,7 +60,7 @@ public class Listagem {
         this.diretor = diretor;
     }
 
-    public void setFaixa(int faixa) {
+    public void setFaixa(long faixa) {
         this.faixa = faixa;
     }
 
@@ -72,5 +72,5 @@ public class Listagem {
         this.nome = nome;
     }
 
-    public void setId(Integer id){this.id = id;}
+    public void setId(long id){this.id = id;}
 }

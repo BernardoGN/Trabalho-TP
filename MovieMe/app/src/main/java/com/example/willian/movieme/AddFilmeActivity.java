@@ -23,6 +23,8 @@ import org.w3c.dom.Text;
 
 public class AddFilmeActivity extends Activity {
 
+    private String s; //para converter de long para string
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,8 @@ public class AddFilmeActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                Toast.makeText(AddFilmeActivity.this, "lalal", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddFilmeActivity.this, Login.getUsuario(), Toast.LENGTH_SHORT).show();
                 // Verifica se os campos obrigatórios estão preenchidos //
 
                 if (TextUtils.isEmpty(nome.getText())){
@@ -54,7 +58,7 @@ public class AddFilmeActivity extends Activity {
                     //Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastAnoObrigatorio), Toast.LENGTH_SHORT).show();
                     ano.setError(getString(R.string.toastAnoObrigatorio));
 
-                // Diferente para RadioGroup, não está funcionando //
+                    // Diferente para RadioGroup, não está funcionando //
                 }else if (radioGroup.getCheckedRadioButtonId() == -1){ // Nenhum RadioButton selecionado
                     Toast.makeText(AddFilmeActivity.this, AddFilmeActivity.this.getString(R.string.toastFaixaObrigatoria), Toast.LENGTH_SHORT).show();
                 }else {
@@ -66,7 +70,7 @@ public class AddFilmeActivity extends Activity {
                     // String que contém o texto do botão escolhido //
                     String faixaEtaria = radioBtn.getText().toString();
 
-                    Integer id = 0;
+                    long id = 0;
 
                     switch (faixaEtaria) {
                         case "L":
@@ -89,19 +93,29 @@ public class AddFilmeActivity extends Activity {
                             break;
                     }
                     // photoId precisa ser final
-                    final Integer photoId = id;
+                    final long photoId = id;
 
                     // Adiciona filme na lista //
                     Listagem l = new Listagem(nome.getText().toString(), genero.getText().toString(), diretor.getText().toString(), photoId, ano.getText().toString());
                     ListagemActivity.AddFilme(l);
 
                     //Adiciona as informações na db
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference("Filmes");
+                    //Login login = new Login(); // recupera o nome de usuario
 
-                    myRef.child(l.getId().toString()).child("Nome").setValue(nome.getText().toString());
-                    myRef.child(l.getId().toString()).child("Diretor").setValue(diretor.getText().toString());
-                    myRef.child(l.getId().toString()).child("Ano").setValue(ano.getText().toString());
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("Usuarios");
+
+
+
+                    s = String.valueOf(Login.getQuantidadeFilmes()); //converte long para string pois o .child não aceita long
+
+                    myRef.child(Login.getUsuario()).child(s).child("Nome").setValue(nome.getText().toString());
+                    myRef.child(Login.getUsuario()).child(s).child("Diretor").setValue(diretor.getText().toString());
+                    myRef.child(Login.getUsuario()).child(s).child("Ano").setValue(ano.getText().toString());
+                    myRef.child(Login.getUsuario()).child(s).child("photoId").setValue(photoId);
+                    myRef.child(Login.getUsuario()).child(s).child("Genero").setValue(genero.getText().toString());
+
+                    Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()+1);
 
                     // Volta para a activity principal //
                     Intent intent = new Intent(AddFilmeActivity.this, ListagemActivity.class);

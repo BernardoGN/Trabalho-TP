@@ -55,7 +55,7 @@ public class ListagemAdapter extends BaseAdapter {
         diretor.setText(listagem.getDiretor());
         ano.setText(listagem.getAno());
         genero.setText(listagem.getGenero());
-        imgFaixa.setImageResource(listagem.getFaixa());
+        imgFaixa.setImageResource((int) listagem.getFaixa());
 
         return view;
     }

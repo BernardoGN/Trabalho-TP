@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_cadusuario"
+        android:layout_centerHorizontal="true"
+        android:width="550px"
+        android:height="150px"
+        android:layout_marginTop="400px"
+        android:hint="Usuário" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl_cadsenha"
+        android:width="550px"
+        android:height="150px"
+        android:hint="Senha"
+        android:layout_below="@+id/lbl_cadusuario"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_cadastrar"
+        android:layout_below="@+id/lbl_cadsenha"
+        android:layout_centerHorizontal="true"
+        android:width="300px"
+        android:height="120px"
+        android:text="Cadastrar"
+        android:textSize="38px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"/>
+
+</RelativeLayout>
