@@ -10,7 +10,7 @@
         android:width="550px"
         android:height="150px"
         android:layout_marginTop="400px"
-        android:hint="Usuário" />
+        android:hint="@string/cad_hint_usuario" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:id="@+id/lbl_cadsenha"
         android:width="550px"
         android:height="150px"
-        android:hint="Senha"
+        android:hint="@string/cad_hint_senha"
         android:layout_below="@+id/lbl_cadusuario"
         android:layout_centerHorizontal="true"/>
 
@@ -30,7 +30,7 @@
         android:layout_centerHorizontal="true"
         android:width="300px"
         android:height="120px"
-        android:text="Cadastrar"
+        android:text="@string/botao_cadastrar"
         android:textSize="38px" />
 
     <TextView

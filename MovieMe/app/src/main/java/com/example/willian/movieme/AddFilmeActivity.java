@@ -102,20 +102,11 @@ public class AddFilmeActivity extends Activity {
                     Listagem l = new Listagem(nome.getText().toString(), genero.getText().toString(), diretor.getText().toString(), photoId, ano.getText().toString());
                     ListagemActivity.AddFilme(l);
 
-                    //Adiciona as informações na db
-                    //Login login = new Login(); // recupera o nome de usuario
-
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference("Usuarios");
 
-                    //int i = 0;
 
-                    //for (int c = 0; c < Login.getQuantidadeFilmes(); c++)
-                    //if(!data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
-                    //    i++;
-                    //}
-
-                    s = String.valueOf(Login.getlastChild()); //converte long para string pois o .child não aceita long
+                    s = String.valueOf(Login.getQuantidadeFilmes()); //converte long para string pois o .child não aceita long
 
                     myRef.child(Login.getUsuario()).child(s).child("Nome").setValue(nome.getText().toString());
                     myRef.child(Login.getUsuario()).child(s).child("Diretor").setValue(diretor.getText().toString());
@@ -124,7 +115,6 @@ public class AddFilmeActivity extends Activity {
                     myRef.child(Login.getUsuario()).child(s).child("Genero").setValue(genero.getText().toString());
 
                     Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()+1);
-                    Login.setLastChild(Login.getlastChild()+1);
 
                     // Volta para a activity principal //
                     Intent intent = new Intent(AddFilmeActivity.this, ListagemActivity.class);

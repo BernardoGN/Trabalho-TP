@@ -44,16 +44,28 @@
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="prompt_password">Senha (opcional)</string>
+    <string name="action_sign_in">Entre ou registre-se</string>
+    <string name="action_sign_in_short">Entre</string>
+    <string name="error_invalid_email">Esse endereço de email é invalido</string>
+    <string name="error_invalid_password">Senha muito curta</string>
+    <string name="error_incorrect_password">Senha incorreta</string>
+    <string name="error_field_required">Campo obrigatório</string>
+    <string name="permission_rationale">"Permissões de contatos são necessárias"</string>
+
+    <!-- Tela de login -->
+    <string name="botao_entrar">Entrar</string>
+    <string name="botao_novo_usuario">CADASTRE-SE AQUI</string>
+    <string name="texto_novo_usuario">Novo usuário? </string>
+    <string name="hint_ent_usuario">Email</string>
+    <string name="hint_ent_senha">Senha</string>
+
+
+    <!-- Tela de cadastro -->
+    <string name="botao_cadastrar">Cadastrar</string>
+    <string name="cad_hint_usuario">Email</string>
+    <string name="cad_hint_senha">Senha</string>
+
 
 
 </resources>

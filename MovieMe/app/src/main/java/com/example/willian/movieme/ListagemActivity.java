@@ -36,6 +36,7 @@ public class ListagemActivity extends Activity {
     private String diretor;
     private Integer photoId;
     private String ano;
+    private long quantidadeFilhos;
     private static DataSnapshot data;
     private static boolean primeira_vez = true;
 
@@ -56,9 +57,8 @@ public class ListagemActivity extends Activity {
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //Login.setQuantidadeFilmes(Login.getlastChild());//pega a quantidade de filmes que o usuario tem
-                if (Login.getQuantidadeFilmes() >= 1 && primeira_vez == true) {// se o usuario tiver um filme registrado no banco de dados, vai recuperar os dados
-                    for (long i = 0; i < Login.getlastChild(); i++) {
+                if (dataSnapshot.child("Usuarios").child(Login.getUsuario()).getChildrenCount() > 0 && primeira_vez) {// se o usuario tiver um filme registrado no banco de dados, vai recuperar os dados
+                    for (long i = 0; i < dataSnapshot.child("Usuarios").child(Login.getUsuario()).getChildrenCount(); i++) {
                         if(dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
                             nome = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Nome").getValue();
                             genero = (String) dataSnapshot.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).child("Genero").getValue();
@@ -68,9 +68,6 @@ public class ListagemActivity extends Activity {
 
                             Listagem l = new Listagem(nome, genero, diretor, photoId, ano);
                             ListagemActivity.AddFilme(l);
-                        }
-                        else{
-                            Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()+1);
                         }
                     }
                     // Atualiza a página //
@@ -117,19 +114,44 @@ public class ListagemActivity extends Activity {
                                         public void onClick(DialogInterface dialogInterface, int i) {
                                             listagens.remove(position);
                                             adapter.notifyDataSetChanged();
-
                                             //deletar na db
                                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                                             DatabaseReference myRef = database.getReference("Usuarios");
-                                            int newPosition = position;
 
-                                            for (int c=0; c < Login.getlastChild(); c++) {
-                                                if (data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(i)).exists()) {
-                                                    newPosition++;
-                                                }
+                                            //pega o id do ultimo filme da db
+                                            quantidadeFilhos = data.child("Usuarios").child(Login.getUsuario()).getChildrenCount() - 1;
+
+                                            if (data.child("Usuarios").child(Login.getUsuario()).getChildrenCount() > 0) {
+
+                                                //passa os dados do último filme para serem armazenados em variáveis
+                                                nome = (String) data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).child("Nome").getValue();
+                                                genero = (String) data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).child("Genero").getValue();
+                                                diretor = (String) data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).child("Diretor").getValue();
+                                                ano = (String) data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).child("Ano").getValue();
+                                                photoId = (int) (long) data.child("Usuarios").child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).child("photoId").getValue();
+
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).setValue(null);//deleta o filme que foi selecionado pelo usuário
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(quantidadeFilhos)).setValue(null);//deleta o último filme
+
+                                                //adiciona o ultimo filme no lugar do filme deletado
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).child("Nome").setValue(nome);
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).child("Diretor").setValue(diretor);
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).child("Ano").setValue(ano);
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).child("photoId").setValue(photoId);
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).child("Genero").setValue(genero);
+
                                             }
-                                            myRef.child(Login.getUsuario()).child(String.valueOf(newPosition)).setValue(null);
-                                            //Login.setQuantidadeFilmes(Login.getQuantidadeFilmes()-1);
+                                            else{
+                                                myRef.child(Login.getUsuario()).child(String.valueOf(position)).setValue(null);//deleta o filme que foi selecionado pelo usuário
+                                            }
+
+                                            //diminui em 1 a quantidade de filmes
+                                            Login.setQuantidadeFilmes(Login.getQuantidadeFilmes() - 1);
+
+
+                                            Intent intent = new Intent(ListagemActivity.this, ListagemActivity.class);
+                                            finish();
+                                            startActivity(intent);
 
                                             Toast.makeText(getBaseContext(), getString(R.string.toastFilmeRemovido), Toast.LENGTH_SHORT).show();
                                         }

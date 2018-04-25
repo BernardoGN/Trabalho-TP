@@ -10,7 +10,7 @@
         android:width="550px"
         android:height="150px"
         android:layout_marginTop="400px"
-        android:hint="Usuário" />
+        android:hint="@string/hint_ent_usuario" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:id="@+id/lbl_senha"
         android:width="550px"
         android:height="150px"
-        android:hint="Senha"
+        android:hint="@string/hint_ent_senha"
         android:layout_below="@+id/lbl_usuario"
         android:layout_centerHorizontal="true"/>
 
@@ -30,14 +30,14 @@
         android:layout_centerHorizontal="true"
         android:width="220px"
         android:height="120px"
-        android:text="Entrar"
+        android:text="@string/botao_entrar"
         android:textSize="38px" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_cad"
-        android:text="Novo usuário? "
+        android:text="@string/texto_novo_usuario"
         android:textSize="38px"
         android:layout_toLeftOf="@+id/btn_cad"
         android:layout_below="@+id/btn_login"
@@ -53,7 +53,7 @@
         android:layout_marginRight="85px"
         android:width="290px"
         android:height="120px"
-        android:text="Cadastre-se aqui"
+        android:text="@string/botao_novo_usuario"
         android:textColor="#1E13FF"
         android:textSize="38px"
         android:background="#00000000"/>
