@@ -3,6 +3,7 @@ package com.example.willian.movieme;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.SystemClock;
@@ -12,7 +13,9 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -90,10 +93,10 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View view, MotionEvent motionEvent) {
+
         if (mViewWidth < 2) {
             mViewWidth = mListView.getWidth();
         }
-
         switch (motionEvent.getActionMasked()) {
             case MotionEvent.ACTION_DOWN: {
                 if (mPaused) {
@@ -122,6 +125,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                 if (mDownView != null) {
                     mDownX = motionEvent.getRawX();
                     mDownY = motionEvent.getRawY();
+
                     mDownPosition = mListView.getPositionForView(mDownView);
                     if (mCallbacks.canDismiss(mDownPosition)) {
                         mVelocityTracker = VelocityTracker.obtain();
@@ -130,6 +134,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                         mDownView = null;
                     }
                 }
+
                 return false;
             }
 
@@ -157,6 +162,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
             }
 
             case MotionEvent.ACTION_UP: {
+
                 if (mVelocityTracker == null) {
                     break;
                 }
@@ -178,6 +184,7 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     dismiss = (velocityX < 0) == (deltaX < 0);
                     dismissRight = mVelocityTracker.getXVelocity() > 0;
                 }
+
                 if (dismiss && mDownPosition != ListView.INVALID_POSITION) {
                     // dismiss
                     final View downView = mDownView; // mDownView gets null'd before animation ends
@@ -185,7 +192,6 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
                     //Meu código
                     final boolean right = dismissRight;
                     ++mDismissAnimationRefCount;
-                    mDownView.setBackgroundColor(mListView.getContext().getResources().getColor(R.color.colorPrimary));
                     mDownView.animate()
                             .translationX(dismissRight ? mViewWidth : -mViewWidth)
                             .alpha(0)
@@ -243,13 +249,23 @@ public class SwipeDismissListViewTouchListener implements View.OnTouchListener {
 
                 if (mSwiping) {
                     mDownView.setTranslationX(deltaX - mSwipingSlop);
-                    mDownView.setAlpha(Math.max(0f, Math.min(1f,
-                            1f - 2f * Math.abs(deltaX) / mViewWidth)));
+                    if (deltaX > 0) {
+                        mListView.setBackgroundColor(mListView.getResources().getColor(R.color.colorRed));
+                        // Cria os icones //
+                        //ListagemActivity.AddViewDel();
+
+                    }else{
+                        mListView.setBackgroundColor(mListView.getResources().getColor(R.color.colorPrimary));
+                        // ListagemActivity.AddViewShare();
+                    }
+                    // mDownView.setAlpha(Math.max(0f, Math.min(1f,
+                    //         1f - 2f * Math.abs(deltaX) / mViewWidth)));
                     return true;
                 }
                 break;
             }
         }
+        mListView.setBackgroundColor(mListView.getResources().getColor(R.color.colorWhite));
         return false;
     }
 

@@ -88,7 +88,7 @@ public class ListagemActivity extends Activity {
         });
 
 
-        // Código para remover filme com swipe //
+        // Código para remover e compartilhar filme com swipe //
         SwipeDismissListViewTouchListener touchListener =
                 new SwipeDismissListViewTouchListener(
                         listaDeFilmes,
